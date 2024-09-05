@@ -1,0 +1,44 @@
+services:
+  boltcms-db:
+    image: mariadb:latest
+    volumes:
+      - boltcms-db:/var/lib/mysql
+    environment:
+      MARIADB_DATABASE: $DB_NAME
+      MARIADB_USER: $DB_USERNAME
+      MARIADB_PASSWORD: $DB_PASSWORD
+      MARIADB_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+    networks:
+      - boltcms-network
+    restart: unless-stopped
+  boltcms-pma:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "${PMA_PORT}:80"
+    environment:
+      PMA_HOST: boltcms-db
+      UPLOAD_LIMIT : 512M
+    networks:
+      - boltcms-network
+    restart: unless-stopped
+    depends_on:
+      - boltcms-db
+  boltcms-app:
+    build:
+      context: dockerfiles/boltcms
+      dockerfile: Dockerfile
+    ports:
+      - "${BOLTCMS_PORT}:80"
+    volumes:
+      - ./boltcms:/var/www/html
+    networks:
+      - boltcms-network
+    restart: unless-stopped
+    depends_on:
+      - boltcms-db
+volumes:
+  boltcms-db:
+networks:
+  boltcms-network:
+    driver: bridge
+    name: "${COMPOSE_PROJECT_NAME}-network"
