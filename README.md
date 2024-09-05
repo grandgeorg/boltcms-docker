@@ -14,7 +14,7 @@ tar -xvzf docker/boltcms.tar.gz -C docker/boltcms/
 3. Rename `docker/.env.example` to `docker/.env` and set the environment variables.
 4. Edit `docker/boltcms/.env` and set the environment variables for `APP_SECRET` and `DATABASE_URL`.
 5. Change into the `docker` directory and run `docker compose build` to build the docker image.
-6. Run `docker-compose up -d` to start the containers.
+6. Run `docker compose up -d` to start the containers.
 7. Get the container name of the `boltcms-app` container by running `docker compose ps`.
 8. Enter the `boltcms-app` container by running the following command:
 
