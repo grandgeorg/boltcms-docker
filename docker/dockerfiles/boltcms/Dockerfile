@@ -106,3 +106,6 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.
 
 # Start the Apache service
 CMD ["apache2-foreground"]
+
+# add composer for bolt
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
