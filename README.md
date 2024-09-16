@@ -50,6 +50,12 @@ ProxyPass /  http://localhost:8000/
 ProxyPassReverse / http://localhost:8000/
 ```
 
+13. Update Bolt CMS with composer by running the following command in the `boltcms-app` container:
+
+```bash
+composer update
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
